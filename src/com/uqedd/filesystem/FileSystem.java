@@ -6,12 +6,12 @@ import java.util.Collections;
 class FileSystem {
     TreeNode root;
     TreeNode current;
-
+    Trie trie;
+    
     FileSystem() {
-        // initialize root
     	this.root = new TreeNode("/", false, null);
-    	// set current = root
         this.current = root;
+        this.trie = new Trie();
     }
     
     void mkdir(String name) {
@@ -23,6 +23,7 @@ class FileSystem {
         } else {
             TreeNode newNode = new TreeNode(name, false, current);
             current.children.put(name, newNode);
+            trie.insert(name, newNode);
         }
     }
     
@@ -139,6 +140,28 @@ class FileSystem {
 
         TreeNode newNode = new TreeNode(last, false, temp);
         temp.children.put(last, newNode);
+        trie.insert(last, newNode);
+    }
+    List<String> search(String prefix) {
+        List<TreeNode> nodes = trie.search(prefix);
+        List<String> result = new ArrayList<>();
+
+        for (TreeNode node : nodes) {
+            result.add(getFullPath(node));
+        }
+
+        return result;
+    }
+    String getFullPath(TreeNode node) {
+        StringBuilder path = new StringBuilder();
+
+        while (node != null && node.parent != null) {
+            path.insert(0, "/" + node.name);
+            node = node.parent;
+        }
+
+        // if nothing added → root
+        return path.length() == 0 ? "/" : path.toString();
     }
     
 }

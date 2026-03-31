@@ -44,7 +44,10 @@ public class Main {
         System.out.println("Final: " + fs.ls());
         fs.cd("/");
         System.out.println("Final: " + fs.ls());
-        Trie trie = new Trie();
-        trie.insert("docs", new TreeNode("docs", false, null));
+        fs.mkdir("docs");
+        fs.mkdir("data");
+
+        fs.search("d");
+        System.out.println("Search d: " + fs.search("d"));
     }
 }
