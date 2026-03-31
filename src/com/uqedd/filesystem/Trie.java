@@ -1,5 +1,8 @@
 package com.uqedd.filesystem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class Trie {
     TrieNode root;
     Trie() {
@@ -20,5 +23,28 @@ class Trie {
 
         curr.isEnd = true;
         curr.nodes.add(node);
+    }
+    List<TreeNode> search(String prefix){
+    	TrieNode curr = root;
+
+    	for (char c : prefix.toCharArray()) {
+    	    if (!curr.children.containsKey(c)) {
+    	        return new ArrayList<>(); // no match
+    	    }
+    	    curr = curr.children.get(c);
+    	}
+    	List<TreeNode> result = new ArrayList<>();
+        dfs(curr, result);
+        return result;
+    	
+    }
+    void dfs(TrieNode node, List<TreeNode> result) {
+    	if (node.isEnd) {
+    	    result.addAll(node.nodes);
+    	}
+
+    	for (TrieNode child : node.children.values()) {
+    	    dfs(child, result);
+    	}
     }
 }
