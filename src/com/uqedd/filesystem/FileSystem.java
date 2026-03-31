@@ -37,4 +37,38 @@ class FileSystem {
         Collections.sort(list);
         return list;
     }
+    void cd(String path) {
+    	TreeNode temp;
+
+    	if (path.startsWith("/")) {
+    	    temp = root;
+    	} else {
+    	    temp = current;
+    	}
+    	String[] parts = path.split("/");
+    	for (String part : parts) {
+    		if (part.equals("")) continue;
+    		else if (part.equals("..")) {
+    		    if (temp.parent != null) {
+    		        temp = temp.parent;
+    		    }
+    		}
+    		else {
+    		    if (!temp.children.containsKey(part)) {
+    		        System.out.println("No such directory");
+    		        return;
+    		    }
+
+    		    TreeNode next = temp.children.get(part);
+
+    		    if (next.isFile) {
+    		        System.out.println("Cannot cd into file");
+    		        return;
+    		    }
+
+    		    temp = next;
+    		}
+    	}
+    	current = temp;
+    }
 }
