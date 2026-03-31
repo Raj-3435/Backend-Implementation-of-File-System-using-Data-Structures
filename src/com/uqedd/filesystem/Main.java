@@ -49,5 +49,12 @@ public class Main {
 
         fs.search("d");
         System.out.println("Search d: " + fs.search("d"));
+        
+        
+        QueryEngine qe = new QueryEngine(fs);
+
+        System.out.println("Search doc: " + qe.search("d"));
+        System.out.println("Search all: " + qe.search("*"));
+        System.out.println("Search exact: " + qe.search("docs"));
     }
 }
