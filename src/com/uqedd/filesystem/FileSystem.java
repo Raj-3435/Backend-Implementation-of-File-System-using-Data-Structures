@@ -1,4 +1,7 @@
 package com.uqedd.filesystem;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 class FileSystem {
     TreeNode root;
@@ -21,5 +24,17 @@ class FileSystem {
             TreeNode newNode = new TreeNode(name, false, current);
             current.children.put(name, newNode);
         }
+    }
+    
+    List<String> ls() {
+        if (current.isFile) {
+            List<String> fileList = new ArrayList<>();
+            fileList.add(current.name);
+            return fileList;
+        }
+
+        List<String> list = new ArrayList<>(current.children.keySet());
+        Collections.sort(list);
+        return list;
     }
 }
