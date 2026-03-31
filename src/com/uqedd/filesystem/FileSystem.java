@@ -71,4 +71,24 @@ class FileSystem {
     	}
     	current = temp;
     }
+    void delete(String name, boolean force) {
+        if (current.isFile) {
+            System.out.println("Cannot delete inside a file");
+            return;
+        }
+
+        if (!current.children.containsKey(name)) {
+            System.out.println("No such file or directory");
+            return;
+        }
+
+        TreeNode node = current.children.get(name);
+
+        if (!node.isFile && !node.children.isEmpty() && !force) {
+            System.out.println("Directory is not empty. Use force delete");
+            return;
+        }
+
+        current.children.remove(name);
+    }
 }
