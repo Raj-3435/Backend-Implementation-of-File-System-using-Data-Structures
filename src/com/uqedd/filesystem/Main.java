@@ -42,5 +42,7 @@ public class Main {
         fs.delete("c", true);  // should work
 
         System.out.println("Final: " + fs.ls());
+        fs.cd("/");
+        System.out.println("Final: " + fs.ls());
     }
 }
